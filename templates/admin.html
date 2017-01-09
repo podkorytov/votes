@@ -1,3 +1,33 @@
 <html>
-Admin
+  <head>
+	<title>Admin</title>
+	<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		$(function() {
+			var socket = io();
+
+			socket.emit('register', 'User123');
+
+			$('#reset').on('click', function() {
+				socket.emit('reset', 'reset');
+			});
+
+			$('#stop').on('click', function() {
+				socket.emit('stop', 'stop');
+			});
+
+			$('#win').on('click', function() {
+				socket.emit('win', 'win');
+			});
+		});
+	</script>
+  </head>
+  <body>
+    <h1>Admin</h1>
+    <a href="#" id="reset">Новое голосование</a>
+    <a href="#" id="stop">Остановить голосование</a>
+    <a href="#" id="win">Победа реальности</a>
+  </body>
 </html>

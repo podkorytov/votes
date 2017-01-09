@@ -1,3 +1,17 @@
 <html>
-Stat
+  <head>
+	<title>Stat</title>
+	<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		$(function() {
+			var socket = io();
+
+			socket.on('votes', function (data) {
+				console.log(data);
+			});
+		});
+	</script>
+  </head>
 </html>

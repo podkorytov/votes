@@ -1,3 +1,23 @@
 <html>
-Index
+  <head>
+	<title>Index</title>
+	<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		$(function() {
+			var socket = io();
+
+			socket.emit('register', 'User123');
+
+			$('#vote').on('click', function() {
+				socket.emit('vote', {user_hash: 'User123', color: 'red'});
+			});
+		});
+	</script>
+  </head>
+  <body>
+    <h1>Index</h1>
+    <a href="#" id="vote">Голосовать</a>
+  </body>
 </html>

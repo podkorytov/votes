@@ -25,10 +25,37 @@ http.listen(port, function() {
 });
 
 io.on('connection', function(socket) {
+    events.votes(function(data) {
+        io.emit('votes', data);
+    });
 
-    socket.on('channel_name', function(msg) {
-        events.event_name(msg, function(error, data) {
-            io.emit('channel_name', data2);
+    socket.on('register', function(msg) {
+        events.register(msg, function(data) {
+            io.emit('register', data);
+        });
+    });
+
+    socket.on('vote', function(msg) {
+        events.vote(msg, function(data) {
+            io.emit('votes', data);
+        });
+    });
+
+    socket.on('reset', function(msg) {
+        events.reset(function(data) {
+            io.emit('votes', data);
+        });
+    });
+
+    socket.on('stop', function(msg) {
+        events.stop(function(data) {
+            // io.emit('votes', data);
+        });
+    });
+
+    socket.on('win', function(msg) {
+        events.win(function(data) {
+            io.emit('votes', data);
         });
     });
 
