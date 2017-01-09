@@ -1,0 +1,23 @@
+{
+  "name": "votes",
+  "version": "1.0.0",
+  "description": "VseMayki NY 2017 matrix votes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/podkorytov/votes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/podkorytov/votes/issues"
+  },
+  "homepage": "https://github.com/podkorytov/votes#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "~1.3.7"
+  }
+}
