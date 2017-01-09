@@ -7,17 +7,29 @@
 	<script>
 		$(function() {
 			var socket = io();
+            var userHash = localStorage.getItem('user_hash');
 
-			socket.emit('register', 'User123');
+            if (!userHash) {
+                $.post('/register', function( data ) {
+                    userHash = data.user_hash
 
-			$('#vote').on('click', function() {
-				socket.emit('vote', {user_hash: 'User123', color: 'red'});
+                    localStorage.setItem('user_hash', userHash)
+                });
+            }
+
+
+			$('#red').on('click', function() {
+				socket.emit('vote', { user_hash: userHash, color : 'red'});
 			});
+            $('#blue').on('click', function() {
+                socket.emit('vote', { user_hash: userHash, color : 'blue'});
+            });
 		});
 	</script>
   </head>
   <body>
     <h1>Index</h1>
-    <a href="#" id="vote">Голосовать</a>
+    <a href="#" id="red">Красная кнопка</a>
+    <a href="#" id="blue">Синяя кнопка</a>
   </body>
 </html>

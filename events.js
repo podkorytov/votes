@@ -1,18 +1,40 @@
-var register = function (msg, callback) {
-	callback(msg);
+var memcached = require('./drivers/memcached.js');
+
+var vote = function (data, callback) {
+	memcached.get('votes', function (err, votes) {
+		if(err) throw new err;
+
+		if (votes) {
+			votes[data.color]++;
+
+			memcached.set('votes', votes, 11110, function (err) {
+				if(err) throw new err;
+			});
+
+			callback(votes);
+		}
+	});
 };
 
-var vote = function (msg, callback) {
-	console.log('Get color');
-	console.log('Get user hash');
-	console.log('Save vote');
 
-	callback({red: 11, blue: 17});
+var votes = function (callback) {
+	memcached.get('votes', function (err, votes) {
+		if(err) throw new err;
+
+		if (votes) {
+			callback(votes);
+		}
+	});
 };
 
 var reset = function (callback) {
-	console.log('Reset values');
-	callback({red: 0, blue: 0});
+	var votes = {red : 0 , blue : 0};
+
+	memcached.set('votes', votes, 0, function (err) {
+		if(err) throw new err;
+	});
+
+	callback(votes);
 };
 
 var win = function (callback) {
@@ -24,13 +46,7 @@ var stop = function (callback) {
 	console.log('Stop votes');
 };
 
-var votes = function (callback) {
-	console.log('Get current values');
-	callback({red: 10, blue: 17});
-};
-
 module.exports = {
-    register: register,
     votes: votes,
     vote: vote,
     reset: reset,
