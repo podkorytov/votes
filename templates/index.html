@@ -7,16 +7,28 @@
 	<script>
 		$(function() {
 			var socket = io();
+
+            //Register
             var userHash = localStorage.getItem('user_hash');
 
             if (!userHash) {
                 $.post('/register', function( data ) {
-                    userHash = data.user_hash
+                    userHash = JSON.parse(data).user_hash;
 
-                    localStorage.setItem('user_hash', userHash)
+                    localStorage.setItem('user_hash', userHash);
                 });
             }
 
+            //Status event
+            socket.on('isActive', function (isActive) {
+                if (isActive) {
+                    $('#poll').show();
+                    $('#inactive').hide();
+                } else {
+                    $('#poll').hide();
+                    $('#inactive').show();
+                }
+            });
 
 			$('#red').on('click', function() {
 				socket.emit('vote', { user_hash: userHash, color : 'red'});
@@ -29,7 +41,12 @@
   </head>
   <body>
     <h1>Index</h1>
-    <a href="#" id="red">Красная кнопка</a>
-    <a href="#" id="blue">Синяя кнопка</a>
+      <div id="poll">
+          <a href="#" id="red">Красная кнопка</a>
+          <a href="#" id="blue">Синяя кнопка</a>
+      </div>
+      <div id="inactive" style="display: none;">
+          <img id="codeHelp" class="img-responsive center-block" src="/media/images/giphy.gif" />
+      </div>
   </body>
 </html>

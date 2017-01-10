@@ -28,6 +28,7 @@ app.post('/register', function (req, res) {
     res.send(JSON.stringify({ user_hash : Math.random().toString(36).substring(7) }));
 });
 
+
 //Server
 http.listen(port, function() {
     console.log('server started on localhost:'+port)
@@ -37,11 +38,18 @@ http.listen(port, function() {
     memcached.set('votes', votes, 11110, function (err) {
         if (err) throw new err;
     });
+    memcached.set('vote_status', false, 0, function (err) {
+        if (err) throw new err;
+    });
 });
 
 io.on('connection', function(socket) {
     events.votes(function(data) {
         io.emit('votes', data);
+    });
+
+    events.isActive(function(data) {
+        io.emit('isActive', data);
     });
 
     socket.on('vote', function(data) {
@@ -51,15 +59,19 @@ io.on('connection', function(socket) {
     });
 
     socket.on('reset', function(msg) {
-        events.reset(function(data) {
+        events.reset();
+
+        io.emit('isActive', true);
+
+        events.votes(function(data) {
             io.emit('votes', data);
         });
     });
 
-    socket.on('stop', function(msg) {
-        events.stop(function(data) {
-            // io.emit('votes', data);
-        });
+    socket.on('stop', function() {
+        events.stop();
+
+        io.emit('isActive', false);
     });
 
     socket.on('win', function(msg) {
