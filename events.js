@@ -79,7 +79,7 @@ var isActive = function (callback) {
 	memcached.get('vote_status', function (err, isActive) {
 		callback(isActive ? isActive : false);
 	});
-}
+};
 
 module.exports = {
     votes: votes,
