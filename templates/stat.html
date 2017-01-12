@@ -77,8 +77,6 @@
 				}
 			});
 
-			var socket = io();
-
 			//Votes data event
 			socket.on('votes', function (data) {
 				myChart.data.datasets[0].data = [data.red, data.blue];
