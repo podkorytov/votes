@@ -1,7 +1,11 @@
 @import 'reset.css';
 
-* {
+*,
+*:hover,
+*:active,
+*:focus {
     box-sizing: border-box;
+    outline: none;
 }
 
 body {
@@ -16,6 +20,20 @@ button {
 .hidden {
     visibility: hidden;
     opacity: 0;
+}
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
 }
 
 #test {
@@ -61,8 +79,32 @@ button {
 
 #red {
     background: transparent url('/media/images/lh.png') right center no-repeat;
+    background-size: contain;
 }
 
 #blue {
     background: transparent url('/media/images/rh.png') left center no-repeat;
+    background-size: contain;
+}
+
+@media (max-device-width: 425px) {
+    #red,
+    #blue {
+        background-position: center;
+        height: 50%;
+        width: 100%;
+    }
+}
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait)
+and (-webkit-min-device-pixel-ratio: 2) {
+    #red,
+    #blue {
+        background-position: center;
+        height: 50%;
+        width: 100%;
+    }
 }

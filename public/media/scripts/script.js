@@ -21,7 +21,6 @@ $(function() {
             $('#poll').hide();
             $('#inactive').show();
             $('#c').removeClass('voting');
-            // $('#stop').click();
         }
     });
 
@@ -29,13 +28,11 @@ $(function() {
     $('#red').on('click', function() {
         socket.emit('vote', { user_hash: userHash, color : 'red'});
         fontColor = 'rgba(220, 50, 20, 1)';
-        console.log('red pill clicked');
     });
 
     $('#blue').on('click', function() {
         socket.emit('vote', { user_hash: userHash, color : 'blue'});
         fontColor = 'rgba(0, 255, 0, 1)';
-        console.log('blue pill clicked');
     });
 
     var c = document.getElementById("c");
@@ -58,7 +55,17 @@ $(function() {
         drops[x] = 999999999;
     }
 
+    window.addEventListener('resize', resizeCanvas, false);
+    window.addEventListener('orientationchange', resizeCanvas, false);
+    resizeCanvas();
+
+    function resizeCanvas() {
+        c.height = window.innerHeight;
+        c.width = window.innerWidth;
+    }
+
     function draw() {
+
         ctx.fillStyle = "rgba(0, 0, 0, 0.055)";
         ctx.fillRect(0, 0, c.width, c.height);
 
