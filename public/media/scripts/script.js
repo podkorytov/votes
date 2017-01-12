@@ -17,40 +17,65 @@ $(function() {
         if (isActive) {
             $('#poll').show();
             $('#inactive').hide();
-            $('#neosPunch').hide();
-            $('#crazySmith').hide()
+            $('.neosPunch').hide();
+            $('.crazySmith').hide()
         } else {
             $('#poll').hide();
             $('#inactive').show();
-            $('#codeHelp').hide();
+            $('#c').removeClass('voting');
+
+            var typedParams = {
+                strings: [
+                    "Wake up, Neo...",
+                    "The Matrix has you...",
+                    "Follow the white rabbit.",
+                    "Zaydi na Vsemayki.ru i kupi futbolku!",
+                    "Knock, knock, Neo.^3000",
+                    "What is real? How do you define real?^2457",
+                    "Don't think you are, know you are.^5798",
+                    "Believe the unbelievable.^2579",
+                    "There is no spoon.^3478",
+                    "What is The Matrix?^6785",
+                    "Free your mind.^5227",
+                    "Neo, I believe…^7865",
+                    "Keep the weight forward!^4556",
+                    "Everything that has a beginning has an end.^8666"
+                ],
+                typeSpeed: 100,
+                startDelay: 250,
+                backDelay: 3300,
+                backSpeed: -50001,
+                showCursor: false
+            };
 
             $.get('/votes', function( data ) {
                 if (data.red > data.blue || data.red == data.blue) {
-                    $('#neosPunch').show().delay(2000).fadeOut(function () {
-                        $('#codeHelp').show();
+                    $('.neosPunch').show().delay(2000).fadeOut(function () {
+                        $(".matrixConsole").typed(typedParams);
                     });
                 } else {
-                    $('#crazySmith').show().delay(2000).fadeOut(function () {
-                        $('#codeHelp').show();
+                    $('.crazySmith').show().delay(2000).fadeOut(function () {
+                        $(".matrixConsole").typed(typedParams);
                     });
                 }
             });
-
-            $('#c').removeClass('voting');
         }
     });
 
     //What if I told you...
+    $('#poll').on('click', function() {
+        $('#c').addClass('voting');
+    });
     $('#red').on('click', function() {
         socket.emit('vote', { user_hash: userHash, color : 'red'});
         fontColor = 'rgba(220, 50, 20, 1)';
     });
-
     $('#blue').on('click', function() {
         socket.emit('vote', { user_hash: userHash, color : 'blue'});
         fontColor = 'rgba(0, 255, 0, 1)';
     });
 
+    //Matrix rain
     var c = document.getElementById("c");
     var ctx = c.getContext("2d");
 
@@ -98,10 +123,6 @@ $(function() {
             drops[i]++;
         }
     }
-
-    $('#poll').on('click', function() {
-        $('#c').addClass('voting');
-    });
 
     setInterval(draw, 33);
 });

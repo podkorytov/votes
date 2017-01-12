@@ -10,8 +10,9 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&amp;subset=cyrillic" rel="stylesheet">
 
         <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/media/scripts/typed.min.js"></script>
     </head>
     <body>
         <canvas class="voting" id="c"></canvas>
@@ -21,12 +22,12 @@
             <a class='cf' id="blue" href="javascript:void(0);"></a>
         </div>
         <div id="inactive" style="display: none;">
-            <img id="neosPunch" class="img-responsive center-block" style="display: none;" src="/media/images/neos_punch.gif" />
-            <img id="crazySmith" class="img-responsive center-block" style="display: none;" src="/media/images/crazy_smith.gif" />
-            <img id="codeHelp" class="img-responsive center-block" style="display: none;" src="/media/images/giphy.gif" />
+            <img class="neosPunch" src="/media/images/neos_punch.gif" style="display: none;" >
+            <img class="crazySmith" src="/media/images/crazy_smith.gif" style="display: none;" >
+            <div class="matrixConsole"></div>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
         <script src="/media/scripts/script.js"></script>
     </body>
 </html>
