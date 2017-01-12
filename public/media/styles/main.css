@@ -1,5 +1,9 @@
 @import 'reset.css';
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: #0a0a0c;
 }
