@@ -1,95 +1,113 @@
 <html>
-  <head>
-	<title>Stat</title>
-	<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.1.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stat</title>
+
+    <link rel="stylesheet" href="/media/styles/main.css">
+
+    <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/scripts/chart.js/dist/Chart.min.js"></script>
-  </head>
-	<body>
-		<div id="chart">
-			<canvas id="myChart" width="100" height="30"></canvas>
-		</div>
-		<div id="inactive" style="display: none;">
-			<img id="neosPunch" class="img-responsive center-block" style="display: none;" src="/media/images/neos_punch.gif" />
-			<img id="crazySmith" class="img-responsive center-block" style="display: none;" src="/media/images/crazy_smith.gif" />
-			<img id="codeHelp" class="img-responsive center-block" style="display: none;" src="/media/images/giphy.gif" />
-		</div>
-		<div id="win" style="display: none;">
-			Reality Win!
-		</div>
-		<script>
-			var socket = io();
+</head>
+<body>
+    <div id="chart">
+        <canvas id="myChart" width="100" height="30"></canvas>
+    </div>
+    <div id="inactive" style="display: none;">
+        <img id="neosPunch" class="img-responsive center-block" style="display: none;" src="/media/images/neos_punch.gif" />
+        <img id="crazySmith" class="img-responsive center-block" style="display: none;" src="/media/images/crazy_smith.gif" />
+        <img id="codeHelp" class="img-responsive center-block" style="display: none;" src="/media/images/giphy.gif" />
+    </div>
+    <div id="win" style="display: none;">
+        Reality Win!
+    </div>
 
-			//Status event
-			socket.on('isActive', function (isActive) {
-				if (isActive) {
-					$('#chart').show();
-					$('#inactive').hide();
-					$('#neosPunch').hide();
-					$('#crazySmith').hide()
-				} else {
-					$('#chart').hide();
-					$('#inactive').show();
-					$('#codeHelp').hide();
+    <script>
+        var socket = io();
 
-					$.get('/votes', function( data ) {
-						if (data.red > data.blue || data.red == data.blue) {
-							$('#neosPunch').show().delay(2000).fadeOut(function () {
-								$('#codeHelp').show();
-							});
-						} else {
-							$('#crazySmith').show().delay(2000).fadeOut(function () {
-								$('#codeHelp').show();
-							});
-						}
-					});
-				}
-			});
+        //Status event
+        socket.on('isActive', function (isActive) {
+            if (isActive) {
+                $('#chart').show();
+                $('#inactive').hide();
+                $('#neosPunch').hide();
+                $('#crazySmith').hide()
+            } else {
+                $('#chart').hide();
+                $('#inactive').show();
+                $('#codeHelp').hide();
 
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'bar',
-				data: {
-					labels: ["Red", "Blue"],
-					datasets: [{
-						label: '# of Votes',
-						data: [12, 19],
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)'
-						],
-						borderColor: [
-							'rgba(255,99,132,1)',
-							'rgba(54, 162, 235, 1)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero:true
-							}
-						}]
-					}
-				}
-			});
+                $.get('/votes', function( data ) {
+                    if (data.red > data.blue || data.red == data.blue) {
+                        $('#neosPunch').show().delay(2000).fadeOut(function () {
+                            $('#codeHelp').show();
+                        });
+                    } else {
+                        $('#crazySmith').show().delay(2000).fadeOut(function () {
+                            $('#codeHelp').show();
+                        });
+                    }
+                });
+            }
+        });
 
-			//Votes data event
-			socket.on('votes', function (data) {
-				myChart.data.datasets[0].data = [data.red, data.blue];
-				myChart.update();
-			});
+        var ctx = $("#myChart");
 
-			//Win event
-			socket.on('win', function (data) {
-				if (data.win === true) {
-					$('#chart').hide();
-					$('#win').show();
-				}
-			});
-		</script>
-	</body>
+        Chart.defaults.global.defaultFontColor = "#0f0";
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Reality", "Matrix"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                },
+                legend: {
+                    labels: {
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Reality VS. Matrix',
+                }
+            }
+        });
+
+        //Votes data event
+        socket.on('votes', function (data) {
+            myChart.data.datasets[0].data = [data.red, data.blue];
+            myChart.update();
+        });
+
+        //Win event
+        socket.on('win', function (data) {
+            if (data.win === true) {
+                $('#chart').hide();
+                $('#win').show();
+            }
+        });
+    </script>
+</body>
 </html>
