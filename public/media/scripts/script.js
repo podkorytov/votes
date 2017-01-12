@@ -51,7 +51,6 @@ $(function() {
     var columns = c.width/font_size;    // number of columns for the rain
     var fontColor = 'rgba(0,0,0,0)';
 
-
     var drops = [];
     for (var x = 0; x < columns; x++) {
         drops[x] = 999999999;
@@ -60,7 +59,6 @@ $(function() {
     function draw() {
         ctx.fillStyle = "rgba(0, 0, 0, 0.055)";
         ctx.fillRect(0, 0, c.width, c.height);
-
 
         ctx.fillStyle = fontColor;
         ctx.font = font_size + "px arial";
@@ -82,10 +80,6 @@ $(function() {
 
     $('#stop').on('click', function() {
         $('#c').removeClass('voting');
-    });
-
-    $('#red').on('click', function() {
-
     });
 
     setInterval(draw, 33);

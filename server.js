@@ -31,7 +31,7 @@ app.post('/register', function (req, res) {
 
 //Server
 http.listen(port, function() {
-    console.log('server started on localhost:'+port)
+    console.log('server started on localhost:'+port);
 
     var votes = { red : 0, blue : 0 };
 
