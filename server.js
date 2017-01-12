@@ -5,6 +5,7 @@ var express = require('express'),
     io = require('socket.io')(http),
     events = require('./events.js'),
     memcached = require('./drivers/memcached.js'),
+    shortid = require('shortid'),
     port = process.env.PORT || 8099;
 
 app.use(express.static(path.join(__dirname, '/public')));
@@ -25,7 +26,7 @@ app.get('/', function(req, res) {
 
 //Backend routes
 app.post('/register', function (req, res) {
-    res.send(JSON.stringify({ user_hash : Math.random().toString(36).substring(7) }));
+    res.send(JSON.stringify({ user_hash : shortid.generate() }));
 });
 
 

@@ -30,7 +30,7 @@ var vote = function (data, callback) {
 				});
 
 				callback(votes);
-			};
+			}
 		});
 
 	});
