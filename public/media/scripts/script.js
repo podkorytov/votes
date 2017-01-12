@@ -17,9 +17,26 @@ $(function() {
         if (isActive) {
             $('#poll').show();
             $('#inactive').hide();
+            $('#neosPunch').hide();
+            $('#crazySmith').hide()
         } else {
             $('#poll').hide();
             $('#inactive').show();
+            $('#codeHelp').hide();
+            $('#c').removeClass('voting');
+
+            $.get('/votes', function( data ) {
+                if (data.red > data.blue) {
+                    $('#neosPunch').show().delay(2000).fadeOut(function () {
+                        $('#codeHelp').show();
+                    });
+                } else {
+                    $('#crazySmith').show().delay(2000).fadeOut(function () {
+                        $('#codeHelp').show();
+                    });
+                }
+            });
+
             $('#c').removeClass('voting');
         }
     });

@@ -65,8 +65,7 @@ var reset = function () {
 };
 
 var win = function (callback) {
-	console.log('Reality wins');
-	callback({red: 100, blue: 0});
+	callback({ win : true});
 };
 
 var stop = function () {

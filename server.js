@@ -29,6 +29,14 @@ app.post('/register', function (req, res) {
     res.send(JSON.stringify({ user_hash : shortid.generate() }));
 });
 
+app.get('/votes', function (req, res) {
+    memcached.get('votes', function (err, data) {
+        if (data) {
+            res.send(JSON.stringify(data));
+        }
+    });
+});
+
 
 //Server
 http.listen(port, function() {
@@ -73,12 +81,18 @@ io.on('connection', function(socket) {
         events.stop();
 
         io.emit('isActive', false);
-    });
 
-    socket.on('win', function(msg) {
-        events.win(function(data) {
+        events.votes(function(data) {
             io.emit('votes', data);
         });
     });
 
+    socket.on('win', function() {
+        events.win(function(data) {
+            events.stop();
+
+            io.emit('isActive', false);
+            io.emit('win', data);
+        });
+    });
 });

@@ -7,8 +7,11 @@
     <script src="/scripts/chart.js/dist/Chart.min.js"></script>
   </head>
 	<body>
-		<div>
+		<div id="chart">
 			<canvas id="myChart" width="100" height="30"></canvas>
+		</div>
+		<div id="win">
+			Reality Win!
 		</div>
 		<script>
 			var ctx = document.getElementById("myChart");
@@ -43,9 +46,18 @@
 
 			var socket = io();
 
+			//Votes data event
 			socket.on('votes', function (data) {
 				myChart.data.datasets[0].data = [data.red, data.blue];
 				myChart.update();
+			});
+
+			//Win event
+			socket.on('win', function (data) {
+				if (data.win === true) {
+					$('#chart').hide();
+					$('#win').show();
+				}
 			});
 		</script>
 	</body>
