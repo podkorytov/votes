@@ -26,7 +26,7 @@ $(function() {
             $('#c').removeClass('voting');
 
             $.get('/votes', function( data ) {
-                if (data.red > data.blue) {
+                if (data.red > data.blue || data.red == data.blue) {
                     $('#neosPunch').show().delay(2000).fadeOut(function () {
                         $('#codeHelp').show();
                     });
