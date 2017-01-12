@@ -10,16 +10,14 @@
 
 body {
     background: #0a0a0c;
-}
-
-button {
-    position: absolute;
-    z-index: 10;
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
     opacity: 0;
+    visibility: hidden;
 }
 
 .cf:before,
@@ -34,6 +32,15 @@ button {
 
 .cf {
     *zoom: 1;
+}
+
+::selection {
+    background: #0f0;
+    color: #000;
+}
+::-moz-selection {
+    background: #0f0;
+    color: #000;
 }
 
 #test {
@@ -87,7 +94,59 @@ button {
     background-size: contain;
 }
 
+.admin-control {
+    padding: 10%;
+    text-align: center;
+    color: #0f0;
+}
+
+.admin-control h1 {
+    font-size: 36px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.admin-control button {
+    background: rgba(0, 255, 0, .2);
+    border: solid 2px #00ff00;
+    color: #fff;
+    display: block;
+    font-family: 'Roboto Slab', serif;
+    letter-spacing: 3px;
+    margin:  10px auto;
+    max-width: 90%;
+    padding: 30px;
+    text-transform: uppercase;
+    transition: background-color .1s ease-in-out;
+    width: 400px;
+}
+
+.admin-control button:hover {
+    cursor: pointer;
+    background: rgba(0, 255, 0, .5);
+}
+
+.admin-control button:active {
+    background: rgba(0, 255, 0, .75);
+}
+
 @media (max-device-width: 425px) {
+    #red,
+    #blue {
+        background-position: center;
+        height: 50%;
+        width: 100%;
+    }
+
+    .admin-control button:hover {
+        background: rgba(0, 255, 0, .2);
+    }
+}
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 2) {
     #red,
     #blue {
         background-position: center;
@@ -101,10 +160,14 @@ and (min-device-width : 768px)
 and (max-device-width : 1024px)
 and (orientation : portrait)
 and (-webkit-min-device-pixel-ratio: 2) {
-    #red,
-    #blue {
-        background-position: center;
-        height: 50%;
-        width: 100%;
+    .admin-control button:hover {
+        background: rgba(0, 255, 0, .2);
+    }
+}
+
+@media only screen
+and (orientation : landscape) {
+    .admin-control {
+        padding: 5% 10%;
     }
 }

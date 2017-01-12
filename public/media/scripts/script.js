@@ -23,7 +23,6 @@ $(function() {
             $('#poll').hide();
             $('#inactive').show();
             $('#codeHelp').hide();
-            $('#c').removeClass('voting');
 
             $.get('/votes', function( data ) {
                 if (data.red > data.blue || data.red == data.blue) {

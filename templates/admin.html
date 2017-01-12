@@ -1,33 +1,28 @@
 <html>
-  <head>
-	<title>Admin</title>
-	<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.1.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		$(function() {
-			var socket = io();
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-			socket.emit('register', 'User123');
+    <title>Admin</title>
 
-			$('#reset').on('click', function() {
-				socket.emit('reset', 'reset');
-			});
+    <link rel="stylesheet" href="/media/styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&amp;subset=cyrillic" rel="stylesheet">
 
-			$('#stop').on('click', function() {
-				socket.emit('stop', 'stop');
-			});
+    <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
 
-			$('#win').on('click', function() {
-				socket.emit('win', 'win');
-			});
-		});
-	</script>
-  </head>
-  <body>
+<body>
+<section class="admin-control">
     <h1>Admin</h1>
     <button id="reset">Новое голосование</button>
     <button id="stop">Остановить голосование</button>
     <button id="win">Победа реальности</button>
-  </body>
+</section>
+
+<script src="/media/scripts/admin.js"></script>
+
+</body>
 </html>
