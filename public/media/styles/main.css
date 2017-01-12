@@ -1,0 +1,64 @@
+@import 'reset.css';
+
+body {
+    background: #0a0a0c;
+}
+
+button {
+    position: absolute;
+    z-index: 10;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+#test {
+    left: 40px;
+}
+
+#c {
+    position: absolute;
+    opacity: 0;
+    -moz-transition: opacity 1.5s;
+    -webkit-transition: opacity 1.5s;
+    -o-transition: opacity 1.5s;
+    transition: opacity 1.5s;
+    z-index: -1;
+}
+
+#c.voting {
+    opacity: 1;
+}
+
+#poll {
+    height: 100%;
+    width: 100%;
+}
+#red,
+#blue {
+    display: block;
+    float: left;
+    height: 100%;
+    opacity: .75;
+    -moz-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+    text-indent: -9999999px;
+    width: 50%;
+}
+
+#red:hover,
+#blue:hover {
+    opacity: 1;
+}
+
+#red {
+    background: transparent url('/media/images/lh.png') right center no-repeat;
+}
+
+#blue {
+    background: transparent url('/media/images/rh.png') left center no-repeat;
+}
