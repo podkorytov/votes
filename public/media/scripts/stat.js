@@ -36,14 +36,18 @@ socket.on('isActive', function (isActive) {
         };
 
         $.get('/votes', function( data ) {
+            $(".matrixConsole").hide();
+
             var data =  JSON.parse(data);
 
             if (data.red > data.blue || data.red == data.blue) {
                 $('.neosPunch').show().delay(2000).fadeOut(function () {
+                    $(".matrixConsole").show();
                     $(".matrixConsole").typed(typedParams);
                 });
             } else {
                 $('.crazySmith').show().delay(2000).fadeOut(function () {
+                    $(".matrixConsole").show();
                     $(".matrixConsole").typed(typedParams);
                 });
             }
