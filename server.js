@@ -44,10 +44,10 @@ http.listen(port, function() {
 
     var votes = { red : 0, blue : 0 };
 
-    memcached.set('votes', votes, 11110, function (err) {
+    memcached.set('votes', votes, 0, function (err) {
         if (err) throw new err;
     });
-    memcached.set('vote_status', false, 0, function (err) {
+    memcached.set('vote_status', true, 0, function (err) {
         if (err) throw new err;
     });
 });
