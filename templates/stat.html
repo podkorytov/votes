@@ -12,102 +12,20 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/scripts/chart.js/dist/Chart.min.js"></script>
+	<script src="/media/scripts/typed.min.js"></script>
 </head>
 <body>
     <div id="chart">
         <canvas id="myChart" width="100" height="30"></canvas>
     </div>
-    <div id="inactive" style="display: none;">
-        <img id="neosPunch" class="img-responsive center-block" style="display: none;" src="/media/images/neos_punch.gif" />
-        <img id="crazySmith" class="img-responsive center-block" style="display: none;" src="/media/images/crazy_smith.gif" />
-        <img id="codeHelp" class="img-responsive center-block" style="display: none;" src="/media/images/giphy.gif" />
-    </div>
+	<div id="inactive" style="display: none;">
+		<img class="neosPunch" src="/media/images/neos_punch.gif" style="display: none;" >
+		<img class="crazySmith" src="/media/images/crazy_smith.gif" style="display: none;" >
+		<div class="matrixConsole" style="display: none;"></div>
+	</div>
     <div id="win" style="display: none;">
         Reality Win!
     </div>
-
-    <script>
-        var socket = io();
-
-        //Status event
-        socket.on('isActive', function (isActive) {
-            if (isActive) {
-                $('#chart').show();
-                $('#inactive').hide();
-                $('#neosPunch').hide();
-                $('#crazySmith').hide()
-            } else {
-                $('#chart').hide();
-                $('#inactive').show();
-                $('#codeHelp').hide();
-
-                $.get('/votes', function( data ) {
-                    if (data.red > data.blue || data.red == data.blue) {
-                        $('#neosPunch').show().delay(2000).fadeOut(function () {
-                            $('#codeHelp').show();
-                        });
-                    } else {
-                        $('#crazySmith').show().delay(2000).fadeOut(function () {
-                            $('#codeHelp').show();
-                        });
-                    }
-                });
-            }
-        });
-
-        var ctx = $("#myChart");
-
-        Chart.defaults.global.defaultFontColor = "#0f0";
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Reality", "Matrix"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                },
-                legend: {
-                    labels: {
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Reality VS. Matrix',
-                }
-            }
-        });
-
-        //Votes data event
-        socket.on('votes', function (data) {
-            myChart.data.datasets[0].data = [data.red, data.blue];
-            myChart.update();
-        });
-
-        //Win event
-        socket.on('win', function (data) {
-            if (data.win === true) {
-                $('#chart').hide();
-                $('#win').show();
-            }
-        });
-    </script>
+	<script src="/media/scripts/stat.js"></script>
 </body>
 </html>

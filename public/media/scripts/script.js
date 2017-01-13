@@ -17,12 +17,12 @@ $(function() {
         if (isActive) {
             $('#poll').show();
             $('#inactive').hide();
-            $('.neosPunch').hide();
-            $('.crazySmith').hide()
+            $(".matrixConsole").hide();
         } else {
             $('#poll').hide();
             $('#inactive').show();
             $('#c').removeClass('voting');
+            $(".matrixConsole").show();
 
             var typedParams = {
                 strings: [
@@ -49,6 +49,8 @@ $(function() {
             };
 
             $.get('/votes', function( data ) {
+                var data =  JSON.parse(data);
+
                 if (data.red > data.blue || data.red == data.blue) {
                     $('.neosPunch').show().delay(2000).fadeOut(function () {
                         $(".matrixConsole").typed(typedParams);
