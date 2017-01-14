@@ -15,6 +15,7 @@ $(function() {
     //Status event
     socket.on('isActive', function (isActive) {
         if (isActive) {
+            $('#c').removeClass('voting');
             $('#poll').show();
             $('#inactive').hide();
             $(".matrixConsole").hide();

@@ -99,9 +99,14 @@ img {
 }
 
 .admin-control,
-#inactive {
+#inactive,
+#win{
     text-align: center;
     color: #0f0;
+}
+
+.admin-control {
+    padding-top: 5%;
 }
 
 .admin-control h1 {
@@ -134,7 +139,8 @@ img {
     background: rgba(0, 255, 0, .75);
 }
 
-.matrixConsole {
+.matrixConsole,
+.winConsole{
     margin: 0 auto;
     text-align: left;
     font-size: 1.5rem;

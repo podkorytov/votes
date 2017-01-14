@@ -3,10 +3,12 @@ var socket = io();
 //Status event
 socket.on('isActive', function (isActive) {
     if (isActive) {
+        $('#win').hide();
         $('#chart').show();
         $('#inactive').hide();
         $(".matrixConsole").hide();
     } else {
+        $('#win').hide();
         $('#chart').hide();
         $('#inactive').show();
         $(".matrixConsole").show();
@@ -90,7 +92,7 @@ var myChart = new Chart(ctx, {
         },
         title: {
             display: true,
-            text: 'Reality VS. Matrix',
+            text: 'Reality VS. Matrix'
         }
     }
 });
@@ -104,7 +106,23 @@ socket.on('votes', function (data) {
 //Win event
 socket.on('win', function (data) {
     if (data.win === true) {
-        $('#chart').hide();
         $('#win').show();
+        $('#chart').hide();
+        $("#inactive").hide();
+
+        var typedParams = {
+            strings: [
+                "I didn't say it would be easy, Neo. I just said it would be the truth.",
+                "It is done."
+            ],
+            typeSpeed: 100,
+            startDelay: 250,
+            backDelay: 3300,
+            backSpeed: -50001,
+            showCursor: false
+        };
+
+        $(".winConsole").show();
+        $(".winConsole").typed(typedParams);
     }
 });
