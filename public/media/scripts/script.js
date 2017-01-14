@@ -15,11 +15,13 @@ $(function() {
     //Status event
     socket.on('isActive', function (isActive) {
         if (isActive) {
+            $('#win').hide();
             $('#c').removeClass('voting');
             $('#poll').show();
             $('#inactive').hide();
             $(".matrixConsole").hide();
         } else {
+            $('#win').hide();
             $('#poll').hide();
             $('#inactive').show();
             $('#c').removeClass('voting');
@@ -79,6 +81,30 @@ $(function() {
     $('#blue').on('click', function() {
         socket.emit('vote', { user_hash: userHash, color : 'blue'});
         fontColor = 'rgba(0, 255, 0, 1)';
+    });
+
+    //Win event
+    socket.on('win', function (data) {
+        if (data.win === true) {
+            $('#win').show();
+            $('#chart').hide();
+            $("#inactive").hide();
+
+            var typedParams = {
+                strings: [
+                    "I didn't say it would be easy, Neo. I just said it would be the truth.",
+                    "It is done."
+                ],
+                typeSpeed: 100,
+                startDelay: 250,
+                backDelay: 3300,
+                backSpeed: -50001,
+                showCursor: false
+            };
+
+            $(".winConsole").show();
+            $(".winConsole").typed(typedParams);
+        }
     });
 
     //Matrix rain
